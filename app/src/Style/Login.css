@@ -1,0 +1,13 @@
+.img{
+    background-image: url('../Images/login.jpg');
+    background-size:cover;
+    background-repeat: round;
+    height:85%;
+    width: 40%;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    border-radius: 0px 100px 10px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
