@@ -56,8 +56,8 @@ export const login = async(req,res) => {
         const header = { algorithm: 'HS256', typ: 'JWT' };
         const user = await User.findOne({email:email})
         if(!user){
-            res.status(403).send({
-                message:'Invalid User'
+            res.status(404).send({
+                message:'Invalid Email'
             })
         }else{
             bcrypt.compare(password, user.password).then((isPasswordValid)=>{
@@ -86,7 +86,7 @@ export const login = async(req,res) => {
                         })
                 }
             }).catch(err=>{
-                return res.status(404).send({
+                return res.status(403).send({
                      message:'Invalid Password'
                  })
              })
@@ -94,6 +94,29 @@ export const login = async(req,res) => {
         }catch(err){
             res.status(500).send({
                 message:'Internal server error'
+            })
+        }
+    }
+
+    export const forgotPassword = async (req,res) => {
+        const {email,password} = req.body
+        try{
+            const user = await User.findOne({email:email})
+            if(!user){
+                res.status(404).send({message: 'Invalid Email'})
+            }else{
+                const salt = await bcrypt.genSalt(10)
+                const hashedPassword = await bcrypt.hash(password, salt)
+                user.password = hashedPassword;
+                await user.save()
+                res.status(201).send({
+                    userID: user._id,
+                    message:'Password changed Successful'
+                })
+            }
+        }catch(err){
+            res.status(500).send({
+                message:'Internal Server Error'
             })
         }
     }

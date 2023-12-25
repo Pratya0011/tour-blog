@@ -4,5 +4,6 @@ export const auth = {
     login: `${baseUrl}/user/login`,
     google: `${baseUrl}/user/OAuth`,
     signup: `${baseUrl}/user/signup`,
-    authenticate: `${baseUrl}/user/authenticate`
+    authenticate: `${baseUrl}/user/authenticate`,
+    forgotPassword: `${baseUrl}/user/forgotPassword`
 }
